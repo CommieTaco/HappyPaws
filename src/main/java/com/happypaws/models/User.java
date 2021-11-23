@@ -1,4 +1,4 @@
-package models;
+package com.happypaws.models;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +21,12 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    public User(String firstName, String lastName, String email){
+    public User(){
 
+    }
+
+    public User(String firstName, String lastName, String email){
+        super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
