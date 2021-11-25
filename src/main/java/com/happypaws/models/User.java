@@ -8,27 +8,28 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long ID_user;
 
-    @Column(name = "firstName")
-    private String firstName;
-    @Column(name = "lastName")
-    private String lastName;
-    @Column(name = "email")
-    private String email;
+    private String Name;
+    private String DUI;
+    private String Username;
+    private String Password;
+    private String Email;
 
     public User(){
-
+        super();
     }
 
-    public User(String firstName, String lastName, String email){
-        super();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public User(long ID, String name, String DUI, String username, String password, String email) {
+        this.ID_user = ID;
+        this.Name = name;
+        this.DUI = DUI;
+        this.Username = username;
+        this.Password = password;
+        this.Email = email;
     }
 }

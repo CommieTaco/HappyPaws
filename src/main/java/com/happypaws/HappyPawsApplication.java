@@ -12,26 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class HappyPawsApplication implements CommandLineRunner {
+public class HappyPawsApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(HappyPawsApplication.class, args);
-    }
-
-    @GetMapping("/hello")
-    public String sayHello(@RequestParam(value = "myName", defaultValue = "World") String name) {
-
-        return String.format("Oh no, it's %s!", name);
-    }
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Override
-    public void run(String... args) throws Exception {
-
-        this.userRepository.save(new User("Rolin", "Azmitia", "yeet@gmail.com"));
-        this.userRepository.save(new User("Rick", "Sanchez", "sheshuan@gmail.com"));
-        this.userRepository.save(new User("Hollow", "Knight", "holloheart@gmail.com"));
     }
 }
