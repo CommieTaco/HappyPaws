@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-
 @Entity
 @Table(name = "User")
 
@@ -17,16 +16,10 @@ public class User {
     @Column(name = "ID_user")
     private long ID;
 
-
-    @Column(name = "Name")
     private String Name;
-    @Column(name = "DUI")
     private String DUI;
-    @Column(name = "Username")
     private String Username;
-    @Column(name = "Password")
     private String Password;
-    @Column(name = "Email")
     private String Email;
 
     public User(){
