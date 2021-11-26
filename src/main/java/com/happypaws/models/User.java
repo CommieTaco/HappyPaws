@@ -5,31 +5,39 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
-@Setter
-@Entity
-@Table(name = "user")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long ID_user;
 
+@Entity
+@Table(name = "User")
+
+@Getter @Setter
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID_user")
+    private long ID;
+
+
+    @Column(name = "Name")
     private String Name;
+    @Column(name = "DUI")
     private String DUI;
+    @Column(name = "Username")
     private String Username;
+    @Column(name = "Password")
     private String Password;
+    @Column(name = "Email")
     private String Email;
 
     public User(){
-        super();
     }
 
     public User(long ID, String name, String DUI, String username, String password, String email) {
-        this.ID_user = ID;
-        this.Name = name;
+        this.ID = ID;
+        Name = name;
         this.DUI = DUI;
-        this.Username = username;
-        this.Password = password;
-        this.Email = email;
+        Username = username;
+        Password = password;
+        Email = email;
     }
 }

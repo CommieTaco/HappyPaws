@@ -3,28 +3,29 @@ package com.happypaws.controllers;
 import com.happypaws.models.User;
 import com.happypaws.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import java.util.List;
 
 
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
-@RequestMapping("api/")
+@RequestMapping("/api")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("users")
-    public @ResponseBody Iterable<User> getAllUsers(){ return userRepository.findAll(); }
+    @GetMapping("/users")
+    public List<User> getAllUsers(){ return userRepository.findAll(); }
 
-    public @ResponseBody User getUser(long idUser){ return  userRepository.findById(idUser).get(); }
+    @PostMapping("/users")
+    public User saveUser(@RequestBody User user){ return userRepository.save(user); }
 
-    public void updateUser(User user){ userRepository.save(user); }
+    @PutMapping("/users")
+    public User updateUser(@RequestBody User user){ return userRepository.save(user); }
 
-    public void deleteUser(long idUser){ userRepository.deleteById(idUser); }
+    @DeleteMapping("/users/{id}")
+    public void deleteUser(@PathVariable("id") long idUser){ userRepository.deleteById(idUser); }
 
-    public boolean existsByIdUser(long idUser){ return userRepository.existsById(idUser); }
 }
