@@ -24,7 +24,7 @@ public class Pet {
     public Pet(){
     }
 
-    public Pet(long ID, String name, String type, String breed, String age) {
+    public Pet(String name, String type, String breed, String age) {
         this.ID = ID;
         Name = name;
         Type = type;

@@ -16,21 +16,25 @@ public class User {
     @Column(name = "ID_user")
     private long ID;
 
-    private String Name;
+    @Column(name = "Name")
+    private String name;
+    @Column(name = "DUI")
     private String DUI;
-    private String Username;
-    private String Password;
-    private String Email;
+    @Column(name = "Username")
+    private String userName;
+    @Column(name = "Password")
+    private String password;
+    @Column(name = "Email   ")
+    private String email;
 
     public User(){
     }
 
-    public User(long ID, String name, String DUI, String username, String password, String email) {
-        this.ID = ID;
-        Name = name;
+    public User(String name, String DUI, String username, String password, String email) {
+        this.name = name;
         this.DUI = DUI;
-        Username = username;
-        Password = password;
-        Email = email;
+        this.userName = username;
+        this.password = password;
+        this.email = email;
     }
 }

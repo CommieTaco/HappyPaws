@@ -12,10 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class HappyPawsApplication {
+public class HappyPawsApplication implements CommandLineRunner{
 
     public static void main(String[] args) {
 
         SpringApplication.run(HappyPawsApplication.class, args);
+    }
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public void run(String... args) throws Exception {
+        this.userRepository.save(new User("Rolin", "06137566-9", "razmit", "1234", "rolin@yeet.com"));
+        this.userRepository.save(new User("El Pepe", "0698666-7", "ElPepe", "12345", "pepe@yeet.com"));
+        this.userRepository.save(new User("Ete Sech", "06137599-5", "EteSech", "123456", "sech@yeet.com"));
     }
 }
