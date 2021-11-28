@@ -22,8 +22,7 @@ public class User {
     private String Password;
     private String Email;
 
-    public User(){
-    }
+    public User(){ super(); }
 
     public User(long ID, String name, String DUI, String username, String password, String email) {
         this.ID = ID;
