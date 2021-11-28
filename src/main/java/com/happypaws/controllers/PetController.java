@@ -19,10 +19,10 @@ public class PetController {
     @GetMapping("/pets")
     public List<Pet> getAllPets(){ return petRepository.findAll(); }
 
-    @PostMapping("/pets")
+    @PostMapping("/pets/newPet")
     public Pet savePet(@RequestBody Pet pet){ return petRepository.save(pet); }
 
-    @PutMapping("/pets")
+    @PutMapping("/pets/updatePet")
     public Pet updatePet(@RequestBody Pet pet){ return petRepository.save(pet); }
 
     @DeleteMapping("/pets/{id}")
