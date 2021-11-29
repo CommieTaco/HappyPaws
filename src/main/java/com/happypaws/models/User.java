@@ -26,14 +26,17 @@ public class User {
     private String password;
     @Column(name = "Email")
     private String email;
+    @Column(name = "type_user")
+    private String typeUser;
 
     public User(){ super(); }
 
-    public User(String name, String DUI, String username, String password, String email) {
+    public User(String name, String DUI, String username, String password, String email, String typeUser) {
         this.name = name;
         this.DUI = DUI;
         this.userName = username;
         this.password = password;
         this.email = email;
+        this.typeUser = typeUser;
     }
 }
