@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000/")
 @RestController
@@ -18,6 +19,9 @@ public class PetController {
 
     @GetMapping("/pets")
     public List<Pet> getAllPets(){ return petRepository.findAll(); }
+
+    @GetMapping("/pets/{id}")
+    public Optional<Pet> getPet(@PathVariable("id") long idPet){ return petRepository.findById(idPet); }
 
     @PostMapping("/pets/newPet")
     public Pet savePet(@RequestBody Pet pet){ return petRepository.save(pet); }

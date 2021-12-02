@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "http://localhost:3000/")
@@ -20,6 +21,9 @@ public class DonationController {
 
     @GetMapping("/donation")
     public List<Donation> getAllDonations(){ return donationRepository.findAll(); }
+
+    @GetMapping("/donation/{id}")
+    public Optional<Donation> getDonation(@PathVariable("id") long idDonation){ return donationRepository.findById(idDonation); }
 
     @PostMapping("/donation")
     public Donation saveDonation(@RequestBody Donation donation){ return donationRepository.save(donation); }

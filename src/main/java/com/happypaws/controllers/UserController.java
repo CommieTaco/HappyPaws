@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -18,6 +19,9 @@ public class UserController {
 
     @GetMapping("/users")
     public List<User> getAllUsers(){ return userRepository.findAll(); }
+
+    @GetMapping("/users/{id}")
+    public Optional<User> getUser(@PathVariable("id") long idUser){ return userRepository.findById(idUser); }
 
     @PostMapping("/saveUser")
     public User saveUser(@RequestBody final User user) {
