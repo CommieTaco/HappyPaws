@@ -82,11 +82,6 @@ const Users = () => {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (!name || !userName || !password || !dui || !email || !typeUser) {
-      alert("Porfavor, llene todos los campos");
-      return;
-    }
-
     addUser({ name, dui, userName, password, email, typeUser });
 
     setName("");
