@@ -100,11 +100,6 @@ const Users = () => {
   const onUpdate = (e) => {
     e.preventDefault();
 
-    if (!name || !userName || !password || !dui || !email || !typeUser) {
-      alert("Porfavor, llene todos los campos");
-      return;
-    }
-
     updateUser({ userId, name, dui, userName, password, email, typeUser });
 
     setUserId(null);
