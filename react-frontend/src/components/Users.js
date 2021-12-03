@@ -15,12 +15,14 @@ import {
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [addModalShow, setAddModalShow] = useState(false);
+  const [userId, setUserId] = useState(null);
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [dui, setDui] = useState("");
   const [email, setEmail] = useState("");
   const [typeUser, setTypeUser] = useState("");
+  const [typeAction, setTypeAction] = useState("");
 
   useEffect(() => {
     const getUsers = async () => {
@@ -32,14 +34,22 @@ const Users = () => {
   }, []);
 
   const fetchUsers = async () => {
-    const res = await fetch("http://localhost:9090/api/users");
+    const res = await fetch("http://localhost:8080/api/users");
     const data = await res.json();
 
     return data;
   };
 
+  const fetchUser = async (id) => {
+    const res = await fetch(`http://localhost:8080/api/users/${id}`);
+    const data = res.json();
+
+    return data;
+  };
+
   const addUser = async (user) => {
-    const res = await fetch("http://localhost:9090/api/saveUser", {
+    console.log("User: ", user);
+    const res = await fetch("http://localhost:8080/api/saveUser", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -50,6 +60,23 @@ const Users = () => {
     const data = await res.json();
 
     setUsers(...users, data);
+  };
+
+  const updateUser = async (user) => {
+    const id = user.userId;
+    console.log("Updated user: ", user);
+    const userToUpd = await fetchUser(user.userId);
+    const res = await fetch(`http://localhost:8080/api/updateUser/`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(userToUpd),
+    });
+
+    const data = await res.json();
+
+    await setUsers(users.map((user) => (user.id === id ? { data } : user)));
   };
 
   const onSubmit = (e) => {
@@ -70,6 +97,25 @@ const Users = () => {
     setTypeUser("");
   };
 
+  const onUpdate = (e) => {
+    e.preventDefault();
+
+    if (!name || !userName || !password || !dui || !email || !typeUser) {
+      alert("Porfavor, llene todos los campos");
+      return;
+    }
+
+    updateUser({ userId, name, dui, userName, password, email, typeUser });
+
+    setUserId(null);
+    setName("");
+    setUserName("");
+    setPassword("");
+    setDui("");
+    setEmail("");
+    setTypeUser("");
+  };
+
   const handleModalShow = () => setAddModalShow(true);
 
   const handleModalClose = () => setAddModalShow(false);
@@ -81,7 +127,13 @@ const Users = () => {
           <h1>Manejo de usuarios</h1>
         </Col>
         <Col sm={8} md={3}>
-          <Button variant="success" onClick={() => handleModalShow()}>
+          <Button
+            variant="success"
+            onClick={() => {
+              handleModalShow();
+              setTypeAction("Create");
+            }}
+          >
             {" "}
             Agregar nuevo usuario <BsFillFilePlusFill />{" "}
           </Button>
@@ -114,7 +166,20 @@ const Users = () => {
                       <Container>
                         <Row className="justify-content-center-md-center">
                           <Col md="auto">
-                            <Button variant="warning">
+                            <Button
+                              variant="warning"
+                              onClick={() => {
+                                handleModalShow();
+                                setTypeAction("Update");
+                                setUserId(user.id);
+                                setName(user.name);
+                                setUserName(user.userName);
+                                setEmail(user.email);
+                                setTypeUser(user.typeUser);
+                                setPassword(user.password);
+                                console.log("User: ", user);
+                              }}
+                            >
                               {" "}
                               <BsFillPencilFill />{" "}
                             </Button>
@@ -137,10 +202,14 @@ const Users = () => {
 
       <Modal show={addModalShow} onHide={handleModalClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Agregar un usuario</Modal.Title>
+          <Modal.Title>
+            {typeAction === "Create"
+              ? "Crear nuevo usuario"
+              : "Actualizar usuario"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={onSubmit}>
+          <Form onSubmit={typeAction === "Create" ? onSubmit : onUpdate}>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridName">
                 <Form.Label>Nombre</Form.Label>
@@ -196,40 +265,30 @@ const Users = () => {
             </Form.Group>
 
             <Row className="my-3">
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Label>State</Form.Label>
-                <Form.Select defaultValue="Choose...">
-                  <option>Choose...</option>
-                  <option>...</option>
-                  <option>yeet</option>
-                </Form.Select>
-              </Form.Group>
-
               <Form.Group as={Col} controlId="formGridTypeUser">
                 <Form.Label>Tipo de usuario</Form.Label>
-                <Form.Select
+                <Form.Control
+                  as="select"
                   defaultValue="Escoja..."
-                  onChange={(e) => console.log("Value: ", e.target.value)}
+                  value={typeUser}
+                  onChange={(e) => setTypeUser(e.target.value)}
                 >
                   <option disabled>Escoja...</option>
                   <option>Admin</option>
                   <option>Organizacion</option>
                   <option>Particular</option>
-                </Form.Select>
+                </Form.Control>
               </Form.Group>
             </Row>
 
-            <Button variant="primary" type="submit">
-              Submit
+            <Button variant="success" type="submit">
+              Guardar
             </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleModalClose}>
             Cerrar
-          </Button>
-          <Button variant="primary" type="submit" onClick={handleModalClose}>
-            Guardar cambios
           </Button>
         </Modal.Footer>
       </Modal>
