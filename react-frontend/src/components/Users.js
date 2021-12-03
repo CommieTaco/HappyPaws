@@ -15,6 +15,7 @@ import {
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [addModalShow, setAddModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
   const [userId, setUserId] = useState(null);
   const [name, setName] = useState("");
   const [userName, setUserName] = useState("");
@@ -106,9 +107,15 @@ const Users = () => {
     setTypeUser("");
   };
 
+  const onDelete = async () => {};
+
   const handleModalShow = () => setAddModalShow(true);
 
   const handleModalClose = () => setAddModalShow(false);
+
+  const handleDeleteModalShow = () => setDeleteModalShow(true);
+
+  const handleDeleteModalClose = () => setDeleteModalShow(false);
 
   return (
     <Container>
@@ -175,7 +182,10 @@ const Users = () => {
                             </Button>
                           </Col>
                           <Col md="auto">
-                            <Button variant="danger">
+                            <Button
+                              variant="danger"
+                              onClick={handleDeleteModalShow}
+                            >
                               <BsTrashFill />
                             </Button>
                           </Col>
@@ -279,6 +289,21 @@ const Users = () => {
         <Modal.Footer>
           <Button variant="secondary" onClick={handleModalClose}>
             Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={deleteModalShow} onHide={handleDeleteModalClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Borrar usuario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>¿Está seguro que quiere eliminar este usuari?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleDeleteModalClose}>
+            Cerrar
+          </Button>
+          <Button variant="danger" onClick={onDelete}>
+            Eliminar
           </Button>
         </Modal.Footer>
       </Modal>
