@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "http://localhost:3000/")
@@ -19,6 +20,9 @@ public class AdoptionController {
 
     @GetMapping("/adoption")
     public List<Adoption> getAllAdoptions(){ return adoptionRepository.findAll(); }
+
+    @GetMapping("/Adoption/{id}")
+    public Optional<Adoption> getAdoption(@PathVariable("id") long idAdoption){ return adoptionRepository.findById(idAdoption); }
 
     @PostMapping("/adoption")
     public Adoption saveAdoption(@RequestBody Adoption adoption){ return adoptionRepository.save(adoption); }

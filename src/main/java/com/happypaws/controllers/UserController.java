@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -17,12 +17,14 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/users")
-    public List<User> getAllUsers(){ return userRepository.findAll(); }
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-//    @RequestMapping(value = "/user/search/{id}", method = RequestMethod.GET)
-//    public User getUser(@PathVariable("id") long idUser){
-//       return userRepository.findOne(idUser);
-//    }
+    @GetMapping("/users/{id}")
+    public Optional<User> getUser(@PathVariable("id") long idUser) {
+        return userRepository.findById(idUser);
+    }
 
     @PostMapping("/saveUser")
     public User saveUser(@RequestBody final User user) {
@@ -31,9 +33,13 @@ public class UserController {
     }
 
     @PutMapping("/updateUser")
-    public User updateUser(@RequestBody User user){ return userRepository.save(user); }
+    public User updateUser(@RequestBody User user) {
+        return userRepository.save(user);
+    }
 
     @DeleteMapping("/users/{id}")
-    public void deleteUser(@PathVariable("id") long idUser){ userRepository.deleteById(idUser); }
+    public void deleteUser(@PathVariable("id") long idUser) {
+        userRepository.deleteById(idUser);
+    }
 
 }
