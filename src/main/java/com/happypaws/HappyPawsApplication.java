@@ -30,4 +30,8 @@ public class HappyPawsApplication implements CommandLineRunner{
         this.userRepository.save(new User("El Pepe", "0698666-7", "ElPepe", "12345", "pepe@yeet.com", "Admin"));
         this.userRepository.save(new User("Ete Sech", "06137599-5", "EteSech", "123456", "sech@yeet.com", "Admin"));*/
     }
+
+//    public User getUserbyId(int id) {
+//        return userRepository.findOne(id);
+//    }
 }

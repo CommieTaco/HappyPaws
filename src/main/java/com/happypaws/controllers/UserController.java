@@ -19,6 +19,11 @@ public class UserController {
     @GetMapping("/users")
     public List<User> getAllUsers(){ return userRepository.findAll(); }
 
+//    @RequestMapping(value = "/user/search/{id}", method = RequestMethod.GET)
+//    public User getUser(@PathVariable("id") long idUser){
+//       return userRepository.findOne(idUser);
+//    }
+
     @PostMapping("/saveUser")
     public User saveUser(@RequestBody final User user) {
         userRepository.save(user);

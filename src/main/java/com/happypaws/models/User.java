@@ -1,7 +1,9 @@
 package com.happypaws.models;
 
+import com.happypaws.repository.UserRepository;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -39,4 +41,8 @@ public class User {
         this.email = email;
         this.typeUser = typeUser;
     }
+
+//    public User getUserbyId(int id) {
+//        return
+//    }
 }
